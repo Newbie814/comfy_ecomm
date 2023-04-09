@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ContactForm } from '../components';
 
 const Contact = () => {
   return (
@@ -12,17 +13,19 @@ const Contact = () => {
             sint unde quaerat ratione soluta veniam provident adipisci cumque
             eveniet tempore?
           </p>
-          <form className='contact-form'>
+          <ContactForm />
+          {/* <form className='contact-form'>
             <input
               type='email'
               className='form-input'
+              name='email'
               placeholder='enter email'
             />
             <button type='submit' className='submit-btn'>
               subscribe
             </button>
             <p style={{ color: 'red' }}>form not actually hooked up</p>
-          </form>
+          </form> */}
         </div>
       </div>
     </Wrapper>
