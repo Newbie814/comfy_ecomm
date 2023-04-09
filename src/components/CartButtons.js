@@ -7,9 +7,11 @@ import { useCartContext } from '../context/cart_context';
 import { useUserContext } from '../context/user_context';
 
 const CartButtons = () => {
+  const { closeSidebar } = useProductsContext();
+
   return (
     <Wrapper className='cart-btn-wrapper'>
-      <Link to='/cart' className='cart-btn'>
+      <Link to='/cart' className='cart-btn' onClick={closeSidebar}>
         Cart
         <span className='cart-container'>
           <FaShoppingCart />
@@ -52,8 +54,8 @@ const Wrapper = styled.div`
     top: -10px;
     right: -16px;
     background: var(--clr-primary-5);
-    width: 16px;
-    height: 16px;
+    width: 1px;
+    height: 1px;
     display: flex;
     align-items: center;
     justify-content: center;
