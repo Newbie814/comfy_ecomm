@@ -44,6 +44,7 @@ const AddToCart = ({ product }) => {
                   chosenColor === color ? 'color-btn active' : 'color-btn'
                 }`}
                 onClick={() => setChosenColor(color)}
+                data-color={color}
               >
                 {chosenColor === color ? <FaCheck /> : null}
               </button>
