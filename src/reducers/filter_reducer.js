@@ -48,7 +48,15 @@ const filter_reducer = (state, action) => {
         return b.name.localeCompare(a.name);
       });
     }
+
     return { ...state, filtered_products: tempProducts };
+  }
+  if (action.type === UPDATE_FILTERS) {
+    const { name, value } = action.payload;
+    return { ...state, filters: { ...state.filters, [name]: value } };
+  }
+  if (action.type === FILTER_PRODUCTS) {
+    return { ...state };
   }
   throw new Error(`No Matching "${action.type}" - action type`);
 };
