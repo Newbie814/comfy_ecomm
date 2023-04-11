@@ -7,10 +7,26 @@ import { CartContent, PageHero } from '../components';
 const CartPage = () => {
   const { cart } = useCartContext();
 
+  if (cart.length < 1) {
+    return (
+      <Wrapper className='page-100'>
+        <div className='empty'>
+          <h2>your cart is empty</h2>
+          <Link to='/products' className='btn'>
+            back to products
+          </Link>
+        </div>
+      </Wrapper>
+    );
+  }
+
   return (
-    <Wrapper>
-      <h3>cart</h3>
-    </Wrapper>
+    <main>
+      <PageHero title='cart' />
+      <Wrapper className='page'>
+        <CartContent />
+      </Wrapper>
+    </main>
   );
 };
 
