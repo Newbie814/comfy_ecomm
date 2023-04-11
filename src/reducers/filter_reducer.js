@@ -85,9 +85,7 @@ const filter_reducer = (state, action) => {
       });
     }
     // price
-    if (price !== state.filters.max_price) {
-      tempProducts = tempProducts.filter((product) => product.price <= price);
-    }
+    tempProducts = tempProducts.filter((product) => product.price <= price);
     // shipping
     if (shipping) {
       tempProducts = tempProducts.filter(
