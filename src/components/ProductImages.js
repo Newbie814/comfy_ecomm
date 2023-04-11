@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 const ProductImages = ({ images = [{ url: '' }] }) => {
   const [mainImg, setMainImg] = useState(images[0]);
-  console.log(images);
 
   return (
     <Wrapper>
