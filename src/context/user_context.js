@@ -8,11 +8,11 @@ export const UserProvider = ({ children }) => {
   const [myUser, setMyUser] = useState(null);
 
   useEffect(() => {
-    console.log('user: ', user);
-    console.log('isAuthenticated: ', isAuthenticated);
-    console.log('isLoading: ', isLoading);
-    console.log('logout: ', logout);
-    console.log('loginWithRedirect: ', loginWithRedirect);
+    if (isAuthenticated) {
+      setMyUser(user);
+    } else {
+      setMyUser(false);
+    }
   }, [isAuthenticated]);
 
   return (

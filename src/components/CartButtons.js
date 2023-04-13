@@ -12,6 +12,8 @@ const CartButtons = () => {
   const { loginWithRedirect, logout, myUser, isAuthenticated } =
     useUserContext();
 
+  console.log('user: ', myUser);
+
   return (
     <Wrapper className='cart-btn-wrapper'>
       <Link to='/cart' className='cart-btn' onClick={closeSidebar}>
@@ -21,15 +23,26 @@ const CartButtons = () => {
           <span className='cart-value'>{total_items}</span>
         </span>
       </Link>
-      {isAuthenticated ? (
-        <button type='button' className='auth-btn' onClick={loginWithRedirect}>
+      {!myUser ? (
+        <button
+          type='button'
+          className='auth-btn login-btn'
+          onClick={loginWithRedirect}
+        >
           Login <FaUserPlus />
         </button>
       ) : (
-        <button type='button' className='auth-btn' onClick={logout}>
+        <button
+          type='button'
+          className='auth-btn logout-btn'
+          onClick={() =>
+            logout({ logoutParams: { returnTo: window.location.origin } })
+          }
+        >
           Logout <FaUserMinus />
         </button>
       )}
+      {/* <img src={myUser.picture} alt='hey' /> */}
     </Wrapper>
   );
 };
