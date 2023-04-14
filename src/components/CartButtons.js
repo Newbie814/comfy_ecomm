@@ -12,8 +12,6 @@ const CartButtons = () => {
   const { loginWithRedirect, logout, myUser, isAuthenticated } =
     useUserContext();
 
-  console.log('user: ', myUser);
-
   return (
     <Wrapper className='cart-btn-wrapper'>
       <Link to='/cart' className='cart-btn' onClick={closeSidebar}>
