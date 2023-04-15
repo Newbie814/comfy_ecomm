@@ -12,6 +12,7 @@ import { useCartContext } from '../context/cart_context';
 import { useUserContext } from '../context/user_context';
 import { formatPrice } from '../utils/helpers';
 import { useHistory } from 'react-router-dom';
+// import { FaArrowAltCircleLeft } from 'react-icons/fa';
 
 const promise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
@@ -51,9 +52,9 @@ const CheckoutForm = () => {
         '/.netlify/functions/create-payment-intent',
         JSON.stringify({ cart, shipping_fee, total_amount })
       );
-      console.log(data);
+      setClientSecret(data.clientSecret);
     } catch (error) {
-      console.log(error);
+      console.log(error.response);
     }
   };
 
@@ -63,15 +64,46 @@ const CheckoutForm = () => {
   }, []);
 
   const handleChange = async (event) => {
-    console.log('handleChange');
+    setDisabled(event.empty);
+    setError(event.error ? event.error.message : '');
   };
 
   const handleSubmit = async (e) => {
-    console.log('handleSubmit');
+    e.preventDefault();
+    setProcessing(true);
+    const payload = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: elements.getElement(CardElement),
+      },
+    });
+    if (payload.error) {
+      setError(`Payment failed ${payload.error.message}`);
+      setProcessing(false);
+    } else {
+      setError(null);
+      setProcessing(false);
+      setSucceeded(true);
+      clearCart();
+      setTimeout(() => {
+        history.push('/');
+      }, 5000);
+    }
   };
 
   return (
     <div>
+      {succeeded ? (
+        <article>
+          <h4>Your payment was successful!</h4>
+          <h6>...Redirecting to home page</h6>
+        </article>
+      ) : (
+        <article>
+          <h4>Hello, {myUser && myUser.name}</h4>
+          <h4>Your total is: {formatPrice(total_amount + shipping_fee)}</h4>
+          <p>Test Card Number: 4242 4242 4242 4242</p>
+        </article>
+      )}
       <form id='payment-form' onSubmit={handleSubmit}>
         <CardElement
           id='card-element'
